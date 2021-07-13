@@ -1,0 +1,105 @@
+﻿@model Prueba_ARS.Models.Afiliado
+
+@{
+    List<Plan> Planes = ViewData["Planes"] as List<Plan>;
+    List<Estatus> Estatuses = ViewData["Estatuses"] as List<Estatus>;
+
+
+}
+
+<div class="container">
+    <h1>Actualizar Afiliado</h1>
+    <br />
+    <form method="post" action="actualizar">
+        <div class="">
+
+            <div class="d-none">
+                <label for="Id">ID:</label>
+                <input type="text" value="@Model.Id" class="form-control" name="Id">
+                <br />
+            </div>
+
+            <h3>ID Seleccionado: @Model.Id</h3>
+
+            <label for="Nombres">Nombres:</label>
+            <input type="text" value="@Model.Nombres" class="form-control" name="Nombres">
+            <br />
+
+            <label for="Apellidos">Apellidos:</label>
+            <input type="text" value="@Model.Apellidos" class="form-control" name="Apellidos">
+            <br />
+
+            <label for="Fecha_Nacimiento">Fecha de Nacimiento:</label>
+            <input type="datetime" value="@Model.Fecha_Nacimiento" class="form-control" name="Fecha_Nacimiento">
+            <br />
+
+            <label for="Sexo">Sexo:</label>
+            <select name="Sexo" class="form-select">
+                @if (Model.Sexo.ToString() == "m")
+                {
+                    <option selected value="m">Masculino</option>
+                    <option value="f">Femenino</option>
+                }
+                else
+                {
+                    <option selected value="f">Femenino</option>
+                    <option  value="m">Masculino</option>
+                }
+                </select>
+            <br />
+
+            <label for="Cedula">Cedula:</label>
+            <input type="number" value="@Model.Cedula" class="form-control" name="Cedula">
+            <br />
+
+            <label for="Numero_Seguridad_Social">Numero de Seguridad Social:</label>
+            <input type="number" value="@Model.Numero_Seguridad_Social" class="form-control" name="Numero_Seguridad_Social">
+            <br />
+
+            <label for="Fecha_Registro">Fecha de Registro:</label>
+            <input type="datetime" value="@Model.Fecha_Registro" class="form-control" name="Fecha_Registro">
+            <br />
+            <label for="Monto_Consumido">Monto Consumido:</label>
+            <input type="number" value="@Model.Monto_Consumido" class="form-control" name="Monto_Consumido">
+            <br />
+
+            <label for="Id_estatus">Estatus:</label>
+            <select name="Id_estatus" class="form-select">
+                @foreach (Estatus estatus in Estatuses)
+                {
+                    if (estatus.Id == Model.Id_Estatus)
+                    {
+                        <option selected value="@estatus.Id">@estatus.Nombre_estatus</option>
+                    }
+                    else
+                    {
+                        <option value="@estatus.Id">@estatus.Nombre_estatus</option>
+
+                    }
+                }
+            </select>
+            <br />
+
+            <label for="Id_plan">Plan:</label>
+            <select name="Id_plan" class="form-select">
+                @foreach (Plan plan in Planes)
+                {
+                    if (plan.Id == Model.Id_Plan)
+                    {
+                        <option selected value="@plan.Id">@plan.Nombre_Plan</option>
+                    }
+                    else
+                    {
+                        <option value="@plan.Id">@plan.Nombre_Plan</option>
+
+                    }
+                }
+            </select>
+            <br />
+
+        </div>
+
+        <input type="submit" value="enviar" />
+
+    </form>
+</div>

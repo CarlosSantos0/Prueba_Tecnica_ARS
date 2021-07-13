@@ -1,0 +1,101 @@
+﻿@model List<Prueba_ARS.Models.Afiliado>
+
+
+@{
+    List<Plan> Planes = ViewData["Planes"] as List<Plan>;
+    List<Estatus> Estatuses = ViewData["Estatuses"] as List<Estatus>;
+
+
+}
+
+@{
+}
+
+<h1 class="ml-3">Afiliados Disponibles</h1>
+<div class="d-flex justify-content-between align-items-center mx-2" >
+    <form method="post" action="/afiliado" class="py-4">
+        <label for="">Nombre:</label>
+        <input name="nombre" type="text" placeholder="Ingrese el Nombre" />
+
+        <label for="">Apellido:</label>
+        <input name="apellido" type="text" placeholder="Ingrese el Apellido" />
+
+        <label for="">Cedula:</label>
+        <input name="cedula" type="text" placeholder="Ingrese la Cedula" />
+
+        <input class="btn btn-outline-primary" type="submit" value="Filtrar Afiliados" />
+    </form>
+
+    <div>
+        <a class="btn btn-primary"  href="~/afiliado/crear">Crear Nuevo Afiliado</a>
+
+    </div>
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Nombres </td>
+                <td>Apellidos</td>
+                <td>Fecha de Nacimiento</td>
+                <td>Sexo</td>
+                <td>Cedula</td>
+                <td>Numero de Seguridad Social</td>
+                <td>Fecha de Registro</td>
+                <td>Monto Consumido</td>
+                <td>Monto Cobertura</td>
+                <td>Monto Restante</td>
+                <td>Estatus</td>
+                <td>Plan</td>
+                <td>Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Afiliado afiliado in Model)
+            {
+                <tr>
+                    <td class="font-weight-bold">#@afiliado.Id</td>
+                    <td>@afiliado.Nombres</td>
+                    <td>@afiliado.Apellidos</td>
+                    <td>@afiliado.Fecha_Nacimiento</td>
+                    <td>@afiliado.Sexo</td>
+                    <td>@afiliado.Cedula</td>
+                    <td>@afiliado.Numero_Seguridad_Social</td>
+                    <td>@afiliado.Fecha_Registro</td>
+                    <td>$@afiliado.Monto_Consumido</td>
+                    <td>@Planes.Find(x => x.Id == afiliado.Id_Plan).Monto_Cobertura</td>
+                    <td>@(Planes.Find(x => x.Id == afiliado.Id_Plan).Monto_Cobertura - afiliado.Monto_Consumido )</td>
+
+                    <td class="font-weight-bold">@Estatuses.Find(x => x.Id == afiliado.Id_Estatus).Nombre_estatus</td>
+                    <td>@Planes.Find(x => x.Id == afiliado.Id_Plan).Nombre_Plan</td>
+
+                    <td><a href="~/afiliado/actualizar/@afiliado.Id">Actualizar</a></td>
+                    @if (afiliado.Id_Estatus == 1)
+                    {
+                        <td><a href="~/afiliado/inactivar/@afiliado.Id">Inactivar</a></td>
+
+                    }
+
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <div class="m-auto text-center w-50 mt-5">
+        <h2>Actualizar Monto Consumido a Afiliado</h2>
+
+        <form method="post" action="actualizarmonto"  >
+            <label for="Id"># de ID del Afiliado:</label>
+            <input type="number" class="form-control" name="Id">
+            <br />
+
+            <label for="Monto_Consumido">Nuevo Monto:</label>
+            <input type="number" class="form-control" name="Monto_Consumido">
+            <br />
+            <input class="btn btn-outline-primary w-25" type="submit" value="Actualizar" />
+
+        </form>
+    </div>

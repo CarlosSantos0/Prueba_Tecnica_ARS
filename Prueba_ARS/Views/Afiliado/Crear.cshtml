@@ -1,0 +1,85 @@
+﻿@{ 
+    List<Plan> Planes = ViewData["Planes"] as List<Plan>;
+    List<Estatus> Estatuses = ViewData["Estatuses"] as List<Estatus>;
+
+
+}
+
+@{
+}
+
+<div class="container">
+    <h1>Crear Nuevo Afiliado</h1>
+    <br />
+    <form method="post" action="crear">
+        <div class="">
+            <label for="Nombres">Nombres:</label>
+            <input type="text" class="form-control" name="Nombres">
+            <br />
+
+            <label for="Apellidos">Apellidos:</label>
+            <input type="text" class="form-control" name="Apellidos">
+            <br />
+
+            <label for="Fecha_Nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" class="form-control" name="Fecha_Nacimiento">
+            <br />
+
+            <label for="Sexo">Sexo:</label>
+            <br />
+            <select name="Sexo" class="form-select w-25">
+                <option selected value="m">Masculino</option>
+                <option value="f">Femenino</option>
+            </select>
+            <br />
+            <br />
+
+            <label for="Cedula">Cedula:</label>
+            <input type="number" class="form-control" name="Cedula">
+            <br />
+
+            <label for="Numero_Seguridad_Social">Numero de Seguridad Social:</label>
+            <input type="number" class="form-control" name="Numero_Seguridad_Social">
+            <br />
+
+            <label for="Fecha_Registro">Fecha de Registro:</label>
+            <input type="datetime" class="form-control" value="@DateTime.Now.ToString()" name="Fecha_Registro">
+            <br />
+
+            <label for="Monto_Consumido">Monto Consumido:</label>
+            <input type="number" class="form-control" value="0" name="Monto_Consumido">
+            <br />
+
+            <label for="Id_estatus">Estatus:</label>
+            <br />
+            <select name="Id_estatus" class="form-select w-25">
+                @foreach (Estatus estatus in Estatuses)
+                {
+                    <option selected value="@estatus.Id">@estatus.Nombre_estatus</option>
+
+                }
+            </select>
+            <br />
+            <br />
+
+            <label for="Id_plan">Plan:</label>
+            <br />
+            <select name="Id_plan" class="form-select w-25">
+                @foreach (Plan plan in Planes)
+                {
+                    <option selected value="@plan.Id">@plan.Nombre_Plan</option>
+
+                }
+            </select>
+            <br />
+
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="enviar" />
+
+    </form>
+
+
+
+
+</div>
